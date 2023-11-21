@@ -1,6 +1,6 @@
-package controller;
+package model;
 
-public class MovieController {
+public class MovieModel {
 
     private String id;
     private String name;
@@ -9,10 +9,10 @@ public class MovieController {
     private String rating;
     private String releaseDate;
 
-    public MovieController() {
+    public MovieModel() {
     }
 
-    public MovieController(String id, String name, String image, String title, String rating, String releaseDate) {
+    public MovieModel(String id, String name, String image, String title, String rating, String releaseDate) {
         this.id = id;
         this.name = name;
         this.image = image;

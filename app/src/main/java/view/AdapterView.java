@@ -14,15 +14,15 @@ import com.daru_badar.themoviedbapp.R;
 
 import java.util.List;
 
-import controller.MovieController;
+import model.MovieModel;
 
 
 public class AdapterView extends RecyclerView.Adapter<AdapterView.MyViewHolder> {
 
     private Context myContext;
-    private List<MovieController> listMovies;
+    private List<MovieModel> listMovies;
 
-    public AdapterView(Context myContext, List<MovieController> listMovies) {
+    public AdapterView(Context myContext, List<MovieModel> listMovies) {
         this.myContext = myContext;
         this.listMovies = listMovies;
     }
