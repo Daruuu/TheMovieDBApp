@@ -49,7 +49,7 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull AdapterView.MyViewHolder holder, int position) {
         holder.id.setText(listMovies.get(position).getId());
-        holder.name.setText(listMovies.get(position).getName());
+        holder.name.setText(listMovies.get(position).getTitle());
         //TODO: import library in grade to can renderize
 
     }
