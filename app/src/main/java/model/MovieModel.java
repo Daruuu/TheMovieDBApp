@@ -3,7 +3,6 @@ package model;
 public class MovieModel {
 
     private String id;
-    private String name;
     private String image;
     private String title;
     private String rating;
@@ -12,9 +11,8 @@ public class MovieModel {
     public MovieModel() {
     }
 
-    public MovieModel(String id, String name, String image, String title, String rating, String releaseDate) {
+    public MovieModel(String id, String image, String title, String rating, String releaseDate) {
         this.id = id;
-        this.name = name;
         this.image = image;
         this.title = title;
         this.rating = rating;
@@ -27,14 +25,6 @@ public class MovieModel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getImage() {
