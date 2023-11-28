@@ -19,10 +19,15 @@ import com.daru_badar.themoviedbapp.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import controller.MovieViewModel;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    private MovieViewModel movieViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

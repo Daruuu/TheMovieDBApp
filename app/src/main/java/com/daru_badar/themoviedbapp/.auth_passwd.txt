@@ -8,3 +8,10 @@ API KEY AUTH:
 
 Access Token Auth:
 eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOWFmMTVlYTIxMTU3ZjdlNDYwNzUzMjJmYWIyNWQ4MyIsInN1YiI6IjY1NWNmZGEwZmQ0YTk2MDBhZGRhM2VlZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qviQiJR3pl0YzcyHGRbQ_qLDOruZCDJH6rTwIsKhh4E
+
+
+
+
+ private static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private static final String API_KEY = "19af15ea21157f7e46075322fab25d83
+";

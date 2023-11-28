@@ -8,15 +8,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.WindowDecorActionBar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.daru_badar.themoviedbapp.R;
 
 import java.util.List;
 
 import model.MovieModel;
 
-public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView, ViewHolder> {
+public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView.MyViewHolder> {
 
     private List<MovieModel> movieListModel;
     private LayoutInflater myInflater;
@@ -31,16 +33,30 @@ public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView, ViewH
     public ListAdapterView() {
     }
 
+    /*
     @NonNull
     @Override
-    public ListAdapterView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
+
     }
+
+     */
 
     @Override
-    public void onBindViewHolder(@NonNull ListAdapterView holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        MovieModel movie = movieListModel.get(position);
+        holder.id.setText(movie.getId());
+        holder.title.setText(movie.getTitle());
+
+        Glide.with(context)
+                .load("https://image.tmdb.org/t/p/w500" + movie.getImage())
+                .into(holder.image);
+
 
     }
+
+
 
 /*
     @Override
@@ -68,6 +84,7 @@ public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView, ViewH
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
+        public WindowDecorActionBar.TabImpl name;
         TextView id;
         TextView title;
         ImageView image;
