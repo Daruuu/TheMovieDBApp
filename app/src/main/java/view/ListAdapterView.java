@@ -16,7 +16,7 @@ import java.util.List;
 
 import model.MovieModel;
 
-public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView, ViewHolder> {
+public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView.ViewHolder> {
 
     private List<MovieModel> movieListModel;
     private LayoutInflater myInflater;
@@ -28,56 +28,56 @@ public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView, ViewH
         this.myInflater = LayoutInflater.from(context);
     }
 
-    public ListAdapterView() {
-    }
-
     @NonNull
     @Override
-    public ListAdapterView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = myInflater.inflate(R.layout.element_recycle_view, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListAdapterView holder, int position) {
-
-    }
-
-/*
-    @Override
-    public ListAdapterView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = myInflater.inflate(R.layout.list_element, null);
-        return new ListAdapterView.MyViewHolder(view);
-        return view;
-    }
-*/
-
-    /*
-    TODO: this aint works
-     */
-/*
-    @Override
-    public void onBindViewHolder(@NonNull ListAdapterView holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindData(movieListModel.get(position));
+
     }
-*/
 
     @Override
     public int getItemCount() {
         return movieListModel.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public void setMovieListModel(List<MovieModel> movieListModel) {
+        this.movieListModel = movieListModel;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView id;
-        TextView title;
         ImageView image;
+        TextView title;
+        TextView rating;
+        TextView release_date;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            id = itemView.findViewById(R.id.textView_name);
-            title = itemView.findViewById(R.id.textView_name);
-            image = itemView.findViewById(R.id.imageView);
+            id = itemView.findViewById(R.id.idMovieTextView);
+            title = itemView.findViewById(R.id.titleTextView);
+            image = itemView.findViewById(R.id.iconImageView);
+            rating = itemView.findViewById(R.id.ratingTextView);
+            release_date = itemView.findViewById(R.id.releaseDateTextView);
+        }
+
+        /*
+        cambios que se generan sobre el los distintos atributos de la cardView
+         */
+        void bindData(final MovieModel itemModel)
+        {
+            //image.setColorFilter(Color.parseColor(""),(PorterDuff.Mode.SRC_IN));
+            id.setText(itemModel.getId());
+            title.setText(itemModel.getTitle());
+            rating.setText(itemModel.getRating());
+            release_date.setText(itemModel.getReleaseDate());
         }
     }
 }
