@@ -33,6 +33,12 @@ public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView.MyView
     public ListAdapterView() {
     }
 
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
     /*
     @NonNull
     @Override
