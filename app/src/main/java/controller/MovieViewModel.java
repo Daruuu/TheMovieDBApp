@@ -8,6 +8,8 @@ import java.util.List;
 import model.MovieModel;
 
 public class MovieViewModel {
+    /*
+
     private MovieRepository repository;
     private LiveData<List<MovieModel>> popularMovies;
 
@@ -23,4 +25,8 @@ public class MovieViewModel {
     public LiveData<List<MovieModel>> getPopularMovies() {
         return popularMovies;
     }
+
+     */
+
+
 }

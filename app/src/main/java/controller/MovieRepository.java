@@ -12,6 +12,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MovieRepository {
+    /*
+
 
     private MovieDbApi movieDbApi;
     public MovieRepository() {
@@ -42,8 +44,12 @@ public class MovieRepository {
             public void onFailure(Call<MovieResponse> call, Throwable t) {
                 // para crear el fallo de la solicitud
             }
-        });+
+        });
 
         return data;
     }
+
+     */
+
+
 }

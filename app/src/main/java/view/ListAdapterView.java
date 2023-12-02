@@ -22,21 +22,28 @@ public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView.MyView
 
     private List<MovieModel> movieListModel;
     private LayoutInflater myInflater;
-    private Context context;
+    private Context mContext;
 
-    public ListAdapterView(List<MovieModel> itemList, Context context) {
+    public ListAdapterView(List<MovieModel> itemList, Context mContext) {
         this.movieListModel = itemList;
-        this.context = context;
-        this.myInflater = LayoutInflater.from(context);
+        this.mContext = mContext;
     }
 
+    /*
     public ListAdapterView() {
     }
+
+     */
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+
+        View v;
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        v = inflater.inflate(R.layout.list_element, parent, false);
+
+        return new MyViewHolder(v);
     }
 
     /*
@@ -55,8 +62,10 @@ public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView.MyView
         holder.id.setText(movie.getId());
         holder.title.setText(movie.getTitle());
 
-        Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500" + movie.getImage())
+        //https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg
+
+        Glide.with(mContext)
+                .load("https://image.tmdb.org/t/p/w500" + movieListModel.get(position).getImage())
                 .into(holder.image);
 
 
