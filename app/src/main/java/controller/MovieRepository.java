@@ -18,6 +18,7 @@ public class MovieRepository {
         this.movieDbApi = HttpUtils.createService(MovieDbApi.class);
     }
 
+/*
     public LiveData<List<MovieModel>> getPopularMovies(String apiKey) {
         MutableLiveData<List<MovieModel>> data = new MutableLiveData<>();
         Call<MovieResponse> call = movieDbApi.getPopularMovies(apiKey);
@@ -42,8 +43,8 @@ public class MovieRepository {
             public void onFailure(Call<MovieResponse> call, Throwable t) {
                 // para crear el fallo de la solicitud
             }
-        });+
-
+        });
         return data;
     }
+*/
 }

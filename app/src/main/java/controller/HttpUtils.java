@@ -8,6 +8,7 @@ public class   HttpUtils {
 
     // Connectin with TMBD
     private static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
+/*
     private static Retrofit retrofit;
 
     public static <S> S createService(Class<S> serviceClass) {
@@ -19,5 +20,6 @@ public class   HttpUtils {
         }
         return retrofit.create(serviceClass);
     }
+*/
 
 }

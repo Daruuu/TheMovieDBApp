@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void init()
     {
-
         elementMovieList = new ArrayList<>();
         elementMovieList.add( new MovieModel( "01","abcd", "title01", "4.6", "20/08/23"));
         elementMovieList.add(new MovieModel("02", "efgh", "title02", "3.8", "20/09/15"));

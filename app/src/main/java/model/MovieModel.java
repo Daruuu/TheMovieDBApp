@@ -1,23 +1,15 @@
 package model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class MovieModel {
 
-
-    @SerializedName("id")
     private String id;
 
-    @SerializedName("poster_path")
     private String image;
 
-    @SerializedName("title")
     private String title;
 
-    @SerializedName("vote_average")
     private String rating;
 
-    @SerializedName("release_date")
     private String releaseDate;
 
     public MovieModel() {
@@ -71,5 +63,14 @@ public class MovieModel {
         this.releaseDate = releaseDate;
     }
 
-
+    @Override
+    public String toString() {
+        return "MovieModel{" +
+                "id='" + id + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", rating='" + rating + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                '}';
+    }
 }
