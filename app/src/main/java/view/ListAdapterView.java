@@ -41,7 +41,7 @@ public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView.MyView
 
         View v;
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        v = inflater.inflate(R.layout.list_element, parent, false);
+//        v = inflater.inflate(R.layout.list_element, parent, false);
 
         return new MyViewHolder(v);
     }
