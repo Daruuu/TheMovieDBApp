@@ -12,13 +12,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MovieRepository {
+    /*
+
 
     private MovieDbApi movieDbApi;
     public MovieRepository() {
         this.movieDbApi = HttpUtils.createService(MovieDbApi.class);
     }
 
-/*
     public LiveData<List<MovieModel>> getPopularMovies(String apiKey) {
         MutableLiveData<List<MovieModel>> data = new MutableLiveData<>();
         Call<MovieResponse> call = movieDbApi.getPopularMovies(apiKey);
@@ -44,7 +45,11 @@ public class MovieRepository {
                 // para crear el fallo de la solicitud
             }
         });
+
         return data;
     }
-*/
+
+     */
+
+
 }

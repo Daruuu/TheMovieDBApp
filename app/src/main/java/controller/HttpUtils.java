@@ -5,6 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class   HttpUtils {
 
+/*
 
     // Connectin with TMBD
     private static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
@@ -21,5 +22,9 @@ public class   HttpUtils {
         return retrofit.create(serviceClass);
     }
 */
+
+ */
+
+
 
 }

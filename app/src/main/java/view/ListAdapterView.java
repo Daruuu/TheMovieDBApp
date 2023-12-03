@@ -8,76 +8,108 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.WindowDecorActionBar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.daru_badar.themoviedbapp.R;
 
 import java.util.List;
 
 import model.MovieModel;
 
-public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView.ViewHolder> {
+public class ListAdapterView extends RecyclerView.Adapter<ListAdapterView.MyViewHolder> {
 
     private List<MovieModel> movieListModel;
     private LayoutInflater myInflater;
-    private Context context;
+    private Context mContext;
 
-    public ListAdapterView(List<MovieModel> itemList, Context context) {
+    public ListAdapterView(List<MovieModel> itemList, Context mContext) {
         this.movieListModel = itemList;
-        this.context = context;
-        this.myInflater = LayoutInflater.from(context);
+        this.mContext = mContext;
     }
+
+    /*
+    public ListAdapterView() {
+    }
+
+     */
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = myInflater.inflate(R.layout.element_recycle_view, parent, false);
-        return new ViewHolder(view);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View v;
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        v = inflater.inflate(R.layout.list_element, parent, false);
+
+        return new MyViewHolder(v);
     }
+
+    /*
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
+
+    }
+
+     */
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindData(movieListModel.get(position));
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        MovieModel movie = movieListModel.get(position);
+        holder.id.setText(movie.getId());
+        holder.title.setText(movie.getTitle());
+
+        //https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg
+
+        Glide.with(mContext)
+                .load("https://image.tmdb.org/t/p/w500" + movieListModel.get(position).getImage())
+                .into(holder.image);
+
 
     }
+
+
+
+/*
+    @Override
+    public ListAdapterView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = myInflater.inflate(R.layout.list_element, null);
+        return new ListAdapterView.MyViewHolder(view);
+        return view;
+    }
+*/
+
+    /*
+    TODO: this aint works
+     */
+/*
+    @Override
+    public void onBindViewHolder(@NonNull ListAdapterView holder, int position) {
+        holder.bindData(movieListModel.get(position));
+    }
+*/
 
     @Override
     public int getItemCount() {
         return movieListModel.size();
     }
 
-    public void setMovieListModel(List<MovieModel> movieListModel) {
-        this.movieListModel = movieListModel;
-    }
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
+        public WindowDecorActionBar.TabImpl name;
         TextView id;
-        ImageView image;
         TextView title;
-        TextView rating;
-        TextView release_date;
+        ImageView image;
 
-        public ViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            id = itemView.findViewById(R.id.idMovieTextView);
-            title = itemView.findViewById(R.id.titleTextView);
-            image = itemView.findViewById(R.id.iconImageView);
-            rating = itemView.findViewById(R.id.ratingTextView);
-            release_date = itemView.findViewById(R.id.releaseDateTextView);
-        }
-
-        /*
-        cambios que se generan sobre el los distintos atributos de la cardView
-         */
-        void bindData(final MovieModel itemModel)
-        {
-            //image.setColorFilter(Color.parseColor(""),(PorterDuff.Mode.SRC_IN));
-            id.setText(itemModel.getId());
-            title.setText(itemModel.getTitle());
-            rating.setText(itemModel.getRating());
-            release_date.setText(itemModel.getReleaseDate());
+            id = itemView.findViewById(R.id.textView_name);
+            title = itemView.findViewById(R.id.textView_name);
+            image = itemView.findViewById(R.id.imageView);
         }
     }
 }

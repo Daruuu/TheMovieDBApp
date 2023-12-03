@@ -1,9 +1,14 @@
 package com.daru_badar.themoviedbapp;
 
+import android.app.appsearch.PutDocumentsRequest;
+import android.content.Context;
+import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -17,25 +22,71 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daru_badar.themoviedbapp.databinding.ActivityMainBinding;
+import com.google.gson.JsonObject;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.MovieViewModel;
 import model.MovieModel;
 import view.ListAdapterView;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
+    //https://api.themoviedb.org/3/movie/343611?api_key=d78c7fd437d75f91e7d40f40647d053d
+
+    private static String JSON_URL = "https://api.themoviedb.org/3/discover/movie?api_key=d78c7fd437d75f91e7d40f40647d053d";
+
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private List<MovieModel> elementMovieList;
-/*
+
+    List<MovieModel> modelList;
+    RecyclerView recyclerView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        modelList = new ArrayList<>();
+        recyclerView = findViewById(R.id.listRecyclerViewId);
+
+
+        /*
+        GetData getData = new GetData();
+        getData.execute();
+         */
+
+
+        fetchDataFromApi();
+
+
+    }
+
+    private void fetchDataFromApi() {
+        new GetData(this).execute(JSON_URL);
+
+    }
+
+
+        /*
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -45,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,47 +105,120 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-    }
-*/
+         */
+
+
+    //configurar la orientacion VERTICAL y HORIZONTAL
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        init();
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // Orientación horizontal
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // Orientación vertical
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
     }
 
-    public void init()
-    {
-        elementMovieList = new ArrayList<>();
-        elementMovieList.add( new MovieModel( "01","abcd", "title01", "4.6", "20/08/23"));
-        elementMovieList.add(new MovieModel("02", "efgh", "title02", "3.8", "20/09/15"));
-        elementMovieList.add(new MovieModel("03", "#873e23", "title03", "4.2", "21/01/07"));
-        elementMovieList.add(new MovieModel("04", "mnop", "title04", "3.5", "21/03/22"));
-        elementMovieList.add(new MovieModel("05", "qrst", "title05", "4.0", "21/06/10"));
-        elementMovieList.add(new MovieModel("06", "uvwxyz", "title06", "4.8", "21/08/30"));
-        elementMovieList.add(new MovieModel("07", "12345", "title07", "3.2", "21/11/12"));
-        elementMovieList.add(new MovieModel("08", "67890", "title08", "4.1", "22/02/01"));
-        elementMovieList.add(new MovieModel("09", "abcdef", "title09", "3.9", "22/04/18"));
-        elementMovieList.add(new MovieModel("10", "ghijkl", "title10", "4.5", "22/07/05"));
-        elementMovieList.add(new MovieModel("11", "mnopqr", "title11", "3.7", "22/09/20"));
-        elementMovieList.add(new MovieModel("12", "stuvwx", "title12", "4.2", "22/12/08"));
-        elementMovieList.add(new MovieModel("13", "yzabcd", "title13", "3.4", "23/03/03"));
-        elementMovieList.add(new MovieModel("14", "efghij", "title14", "4.0", "23/05/21"));
-        elementMovieList.add(new MovieModel("15", "klmnop", "title15", "3.6", "23/08/12"));
-        elementMovieList.add(new MovieModel("16", "qrstuv", "title16", "4.3", "23/10/29"));
-        elementMovieList.add(new MovieModel("17", "wxyzab", "title17", "3.8", "23/01/14"));
-        elementMovieList.add(new MovieModel("18", "123456", "title18", "4.5", "23/04/02"));
-        elementMovieList.add(new MovieModel("19", "789012", "title19", "3.9", "23/06/20"));
-        elementMovieList.add(new MovieModel("20", "abcde1", "title20", "4.1", "23/09/07"));
 
-        ListAdapterView listAdapterView = new ListAdapterView(elementMovieList, this);
-        RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(listAdapterView);
+
+
+
+
+    public class GetData extends AsyncTask<String, Void , String>{
+
+            private WeakReference<MainActivity> activityReference;
+
+            GetData(MainActivity context) {
+                activityReference = new WeakReference<>(context);
+            }
+
+
+            @Override
+            protected String doInBackground(String... strings) {
+                String current = "";
+
+                try{
+                    URL url;
+                    HttpURLConnection urlConnection = null;
+
+                    try {
+                        url = new URL(JSON_URL);
+                        urlConnection = (HttpURLConnection) url.openConnection();
+
+                        InputStream is = urlConnection.getInputStream();
+                        InputStreamReader isr = new InputStreamReader(is);
+
+                        int data = isr.read();
+                        while(data != -1){
+                            current += (char) data;
+                            data = isr.read();
+
+                        }
+                        return current;
+
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }finally {
+                        if(urlConnection != null){
+                            urlConnection.disconnect();
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return current;
+            }
+            @Override
+            protected void onPostExecute(String s){
+
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray jsonArray =jsonObject.getJSONArray("results");
+
+                    for(int i = 0; i < jsonArray.length(); i++){
+
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                        MovieModel model = new MovieModel();
+                        model.setId(jsonObject1.getString("id"));
+                        model.setTitle(jsonObject1.getString("name"));
+                        model.setImage(jsonObject1.getString("image"));
+
+                        modelList.add(model);
+                    }
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                PutDataIntoRecyclerView(modelList);
+            }
+
+
+        }
+        private void PutDataIntoRecyclerView(List<MovieModel> modelList){
+            ListAdapterView adapterView = new ListAdapterView(modelList, this);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapterView);
+
+        }
+
     }
+
+
+
+
+
+
+    /*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -116,12 +241,18 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-/*
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-*/
+
 }
+
+
+     */
+
+
+
